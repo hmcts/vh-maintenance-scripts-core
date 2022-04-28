@@ -54,7 +54,7 @@ namespace MaintenanceScriptsCore
                     Console.WriteLine($"Unable to create user {userToCreate.FirstName} {userToCreate.LastName}");
                     Console.WriteLine("Error log:");
                     Console.WriteLine(e);
-                    return;
+                    continue;
                 }
 
                 foreach (var groupName in _graphApiGroups)
@@ -72,7 +72,6 @@ namespace MaintenanceScriptsCore
                         if (group == null)
                         {
                             Console.WriteLine($"{groupName}: Skipped group not found");
-                            return;
                         }
 
                         _graphApiService.groupCache.Add(groupName, group);
