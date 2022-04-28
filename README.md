@@ -17,5 +17,3 @@ judge
 NOTE: The second command needs to the file path containing the users that needs to be added to Active directiory.
 
 In GraphApiService.cs, the AzureAd needs to be configured with the correct TenantId, ClientId and ClientSecret. Current implementation is using the vh-user-api-dev app registration.
-
-From the results look for line(s) of code highlighted with Survived\No Coverage and fix them.
