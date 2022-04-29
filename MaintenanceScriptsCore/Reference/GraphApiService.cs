@@ -34,6 +34,13 @@ namespace MaintenanceScriptsCore.Reference
             "vh_video_kinly_saml2_test1_users", "vh_video_kinly_saml2_test2_users", "vh_judges_vh_video_kinly_saml2_dev"
         };
 
+        public List<string> ListingOfficerGroupsWithKinlyGroups = new List<string>
+        {
+            "VirtualRoomAdministrator", "External",
+            "vh_video_kinly_saml2_prod_users", "vh_video_kinly_saml2_preprod_users", "vh_video_kinly_saml2_test_users",
+            "vh_video_kinly_saml2_test1_users", "vh_video_kinly_saml2_test2_users", "vh_judges_vh_video_kinly_saml2_dev"
+        };
+
         public IDictionary<string, Microsoft.Graph.Group> groupCache = new Dictionary<string, Microsoft.Graph.Group>();
 
         public static readonly Compare<UserResponse> CompareJudgeById =
