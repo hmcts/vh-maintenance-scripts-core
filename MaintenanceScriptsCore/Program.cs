@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using MaintenanceScriptsCore.Helpers.WebApi;
 using MaintenanceScriptsCore.Reference;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Graph;
 
 namespace MaintenanceScriptsCore
 {
@@ -9,6 +11,12 @@ namespace MaintenanceScriptsCore
     {
         static async Task Main(string[] args)
         {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddUserSecrets("222e97c1-a830-46f1-982e-c20434df1a70").Build();
+
+            var graphApiSettings = config.GetSection("GraphApi");
+            
             if (args.Length != 2)
             {
                 Console.WriteLine("A valid group case is required, valid groups are:");
@@ -26,7 +34,7 @@ namespace MaintenanceScriptsCore
             var filePath = args[1];
 
             Operations addUsersOperation;
-            var _graphApiService = new GraphApiService(new HttpClientService());
+            var _graphApiService = new GraphApiService(new HttpClientService(), graphApiSettings);
 
             switch (groupCase.ToLowerInvariant())
             {

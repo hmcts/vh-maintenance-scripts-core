@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using MaintenanceScriptsCore.Helpers.WebApi;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Graph;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
@@ -47,6 +48,7 @@ namespace MaintenanceScriptsCore.Reference
             Compare<UserResponse>.By((x, y) => x.Email == y.Email, x => x.Email.GetHashCode());
 
         private IHttpClientService _httpClientService;
+        private readonly IConfigurationSection _graphApiSettings;
         private string _accessTokenWindows;
         private string _accessToken;
 
@@ -60,9 +62,13 @@ namespace MaintenanceScriptsCore.Reference
             ClientSecret = "client-secret-for-vh-user-api-dev"
         };
 
-        public GraphApiService(IHttpClientService httpClientService)
+        public GraphApiService(IHttpClientService httpClientService, IConfigurationSection graphApiSettings)
         {
             _httpClientService = httpClientService;
+            _graphApiSettings = graphApiSettings;
+            _azureAdConfiguration.TenantId = _graphApiSettings["TenantId"];
+            _azureAdConfiguration.ClientId = _graphApiSettings["ClientId"];
+            _azureAdConfiguration.ClientSecret = _graphApiSettings["ClientSecret"];
             _accessTokenWindows = GetClientAccessTokenGraphApi(GraphApiType.GraphWindows);
             _accessToken = GetClientAccessTokenGraphApi(GraphApiType.GraphMicrosoft);
         }
