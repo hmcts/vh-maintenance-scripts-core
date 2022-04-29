@@ -93,8 +93,9 @@ namespace MaintenanceScriptsCore
 
         CreateUserRequest CreateRequest(string firstname, string lastname, string email)
         {
-            var displayName = $"{firstname}.{lastname}";
-
+            var trimmedFirstName = string.Concat(firstname.Where(c => !char.IsWhiteSpace(c)));
+            var trimmedLastName = string.Concat(lastname.Where(c => !char.IsWhiteSpace(c)));
+            var displayName = $"{trimmedFirstName.Trim()}.{trimmedLastName.Trim()}";
             return new CreateUserRequest
             {
                 FirstName = firstname,
